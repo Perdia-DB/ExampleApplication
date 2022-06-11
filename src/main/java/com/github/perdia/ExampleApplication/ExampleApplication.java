@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.perdia.Core;
+import com.github.perdia.ExampleApplication.Blog.BlogObject;
 import com.github.perdia.tcp.TCPClient;
 
 @SpringBootApplication
@@ -16,6 +17,7 @@ public class ExampleApplication {
 
 	public static void main(String[] args) {
 		client = Core.init();
+		BlogObject.init();
 		SpringApplication.run(ExampleApplication.class, args);
 	}
 

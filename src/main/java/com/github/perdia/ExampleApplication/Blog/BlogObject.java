@@ -17,6 +17,7 @@ import com.github.perdia.queries.storage.AllTemplates;
 public class BlogObject {
     public BlogInner inner;
     public static Template self;
+    public Instance inst;
 
     public static void init() {
         Template blog = new Template("BLOG");
@@ -24,6 +25,7 @@ public class BlogObject {
         blog.addEntry("author", DataType.STRING, "");
         blog.addEntry("content", DataType.STRING, "");
         blog.addEntry("likes", DataType.INTEGER, 0);
+        ExampleApplication.client.write(blog.toCreationQuery().getBytes(StandardCharsets.UTF_8));
         BlogObject.self = blog;
     }
 
@@ -37,7 +39,6 @@ public class BlogObject {
         String content = (String) data.get("content").read();
         int likes = (Integer) data.get("likes").read();
         this.inner = new BlogInner(title, author, content, likes);
-        this.create();
     }
 
     public BlogObject(BlogInner inner) {
@@ -45,7 +46,6 @@ public class BlogObject {
             BlogObject.init();
         }
         this.inner = inner;
-        this.create();
     }
 
     public BlogObject(String title, String author, String content) {
@@ -57,15 +57,19 @@ public class BlogObject {
             BlogObject.init();
         }
         this.inner = new BlogInner(title, author, content, likes);
-        this.create();
     }
 
-    public void create() {
-        Instance blog = new Instance("Blog", BlogObject.self);
-        blog.setData("title", new StringDataEntry(this.inner.title));
-        blog.setData("author", new StringDataEntry(this.inner.author));
-        blog.setData("content", new StringDataEntry(this.inner.content));
-        blog.setData("likes", new LongDataEntry((long) this.inner.likes));
+    public Instance create() {
+        if (this.inst != null) {
+            return this.inst;
+        }
+        Instance blog = new Instance(this.inner.title, BlogObject.self);
         ExampleApplication.client.write(blog.createInstance(BlogObject.self).getBytes(StandardCharsets.UTF_8));
+        ExampleApplication.client.write(blog.setData("title", new StringDataEntry(this.inner.title)).getBytes(StandardCharsets.UTF_8));
+        ExampleApplication.client.write(blog.setData("author", new StringDataEntry(this.inner.author)).getBytes(StandardCharsets.UTF_8));
+        ExampleApplication.client.write(blog.setData("content", new StringDataEntry(this.inner.content)).getBytes(StandardCharsets.UTF_8));
+        ExampleApplication.client.write(blog.setData("likes", new LongDataEntry((long) this.inner.likes)).getBytes(StandardCharsets.UTF_8));
+        this.inst = blog;
+        return this.inst;
     }
 }

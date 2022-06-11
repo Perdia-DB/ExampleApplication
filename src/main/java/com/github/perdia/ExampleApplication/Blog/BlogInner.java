@@ -18,6 +18,6 @@ public class BlogInner {
 
     @Override
     public String toString() {
-        return String.format("Blog{title=&s,author=&s,content=&s,likes=&d}", this.title, this.author, this.content, this.likes);
+        return String.format("Blog: {%n   title=%s,%n   author=%s,%n   content=%s,%n   likes=%d%n}", this.title, this.author, this.content, this.likes);
     }
 }

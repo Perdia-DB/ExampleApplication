@@ -7,8 +7,15 @@ $add: #29b658;
 $remove: #c44949;
 $selected: #2a91b3;
 
-$shadow: inset 0px 6px 4px 0px $darker;
-$shadow-flipped: inset 0px -8px 4px 0px $darker;
+$font-big: 32pt;
+$bold-weight: 800;
+$font-normal: 16pt;
+$font-small: 12pt;
+
+$shadow-color: rgba(0,0,0,0.5);
+$shadow: inset 0px 6px 4px 0px $shadow-color;
+$shadow-flipped: inset 0px -6px 4px 0px $shadow-color;
+$shadow-side: 6px 0px 6px 0px $shadow-color;
 
 * {
     padding: 0;
@@ -17,6 +24,8 @@ $shadow-flipped: inset 0px -8px 4px 0px $darker;
     background: $dark;
     color: $bright;
     font-family: 'Merriweather', serif;
+    transition: 100ms ease all;
+    font-size: $font-normal;
 }
 
 body {
@@ -29,11 +38,17 @@ body {
 .sidebar {
     display: grid;
     grid-template-rows: 12% 82% 6%;
+    box-shadow: $shadow-side;
+    z-index: 9999;
 
     .sidebarHeading {
         display: flex;
         justify-content: center;
         align-items: center;
+        h1 {
+            font-size: $font-big;
+            font-weight: $bold-weight;
+        }
     }
 
     .sidebarContent {
@@ -52,7 +67,7 @@ body {
             box-shadow: $shadow;
 
             span {
-                background: inherit
+                background: inherit;
             }
 
             &:hover {
@@ -88,12 +103,17 @@ body {
             justify-content: center;
             align-items: center;
 
-            svg {
+            div {
                 color: inherit;
                 background: transparent;
 
-                path {
-                    fill: $bright;
+                svg {
+                    color: inherit;
+                    background: transparent;
+
+                    path {
+                        fill: $bright;
+                    }
                 }
             }
 
@@ -113,6 +133,7 @@ body {
     color: $dark;
     padding: 50px;
     overflow-y: auto;
+    position: relative;
 
     * {
         color: inherit;
@@ -121,5 +142,90 @@ body {
 
     div {
         margin-top: 40px;
+    }
+
+    h1 {
+        font-size: $font-big;
+        font-weight: $bold-weight;
+    }
+
+    p {
+        font-size: $font-small;
+    }
+}
+
+.edit {
+
+    * {
+        border: 3px dashed $selected;
+        padding: 20px 40px;
+        margin: 10px;
+        border-radius: 5px;
+
+        * {
+            border: none;
+        }
+
+        &:focus {
+            border: 3px solid $selected !important;
+        }
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+    $send-button-size: 70px;
+    $send-button-margin: 40px;
+    .send {
+        border: none;
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+        min-width: $send-button-size;
+        max-width: $send-button-size;
+        min-height: $send-button-size;
+        max-height: $send-button-size;
+        padding: 0;
+        margin: $send-button-margin;
+        background: $selected;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            filter: brightness(1.2)
+        }
+
+        &:active {
+            filter: brightness(0.9)
+        }
+
+        div {
+            color: inherit;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            min-width: $send-button-size;
+            max-width: $send-button-size;
+            min-height: $send-button-size;
+            max-height: $send-button-size;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                color: inherit;
+                background: transparent;
+                border: none;
+                padding: 0;
+                margin: 0;
+
+                path {
+                    fill: $bright;
+                    border: none;
+                }
+            }
+        }
     }
 }

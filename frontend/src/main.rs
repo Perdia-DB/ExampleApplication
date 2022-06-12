@@ -26,6 +26,7 @@ macro_rules! console_log {
 
 mod components;
 mod data;
+mod assets;
 
 #[function_component(App)]
 fn app() -> Html {
@@ -44,7 +45,7 @@ fn app() -> Html {
     });
     html! {
         <>
-            <Sidebar data={Box::new(res.lock().unwrap().clone())}/>
+            <Sidebar data={Box::new(res.lock().unwrap().clone())} selected={state.clone()}/>
             <View selected={state}/>
         </>
     }

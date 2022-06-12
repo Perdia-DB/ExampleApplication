@@ -1,12 +1,13 @@
 [package]
-name = "portfolio"
+name = "frontend"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-yew = "0.19.3"
+yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }
+yewdux = { git = "https://github.com/intendednull/yewdux.git" }
 yew-router = "*"
 include_dir = "*"
 markdown = "*"
@@ -18,3 +19,4 @@ wasm-bindgen-futures = "*"
 wasm-bindgen = "*"
 serde = "*"
 serde_json = "*"
+lazy_static = "*"

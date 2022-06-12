@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+$bright: #f5fffa;
+$dark: #303030;
+$darker: #202020;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background: $dark;
+    color: $bright;
+    font-family: 'Merriweather', serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.sidebar {
+    display: grid;
+    grid-template-rows: 10% 90%;
+
+    .sidebarHeading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebarContent {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+
+        .blogEntry {
+            height: 80px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 5px 20px;
+            box-shadow: inset 0px 4px 4px 0px $darker;
+        }
+    }
+}
+
+.view {
+    background: $bright;
+    color: $dark;
+    padding: 50px;
+    overflow-y: auto;
+
+    * {
+        color: inherit;
+        background: inherit;
+    }
+
+    div {
+        margin-top: 40px;
+    }
+}

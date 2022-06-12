@@ -42,7 +42,7 @@
             <artifactId>Perdia-ORM-Java</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Perdia-ORM-Java-1.0.jar</systemPath>
+            <systemPath>${project.basedir}/lib/Perdia-ORM-Java.jar</systemPath>
         </dependency>
 		<dependency>
             <groupId>io.github.cdimascio</groupId>

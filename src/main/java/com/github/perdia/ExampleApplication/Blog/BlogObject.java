@@ -64,11 +64,7 @@ public class BlogObject {
             return this.inst;
         }
         Instance blog = new Instance(this.inner.title, BlogObject.self);
-        ExampleApplication.client.write(blog.createInstance(BlogObject.self).getBytes(StandardCharsets.UTF_8));
-        ExampleApplication.client.write(blog.setData("title", new StringDataEntry(this.inner.title)).getBytes(StandardCharsets.UTF_8));
-        ExampleApplication.client.write(blog.setData("author", new StringDataEntry(this.inner.author)).getBytes(StandardCharsets.UTF_8));
-        ExampleApplication.client.write(blog.setData("content", new StringDataEntry(this.inner.content)).getBytes(StandardCharsets.UTF_8));
-        ExampleApplication.client.write(blog.setData("likes", new LongDataEntry((long) this.inner.likes)).getBytes(StandardCharsets.UTF_8));
+        ExampleApplication.client.write(blog.allInOneQuery().getBytes(StandardCharsets.UTF_8));
         this.inst = blog;
         return this.inst;
     }

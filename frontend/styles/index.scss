@@ -3,6 +3,12 @@
 $bright: #f5fffa;
 $dark: #303030;
 $darker: #202020;
+$add: #29b658;
+$remove: #c44949;
+$selected: #2a91b3;
+
+$shadow: inset 0px 6px 4px 0px $darker;
+$shadow-flipped: inset 0px -8px 4px 0px $darker;
 
 * {
     padding: 0;
@@ -22,7 +28,7 @@ body {
 
 .sidebar {
     display: grid;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 12% 82% 6%;
 
     .sidebarHeading {
         display: flex;
@@ -34,7 +40,8 @@ body {
         width: 100%;
         display: flex;
         flex-direction: column;
-        overflow-y: scroll;
+        overflow-y: auto;
+        box-shadow: $shadow-flipped;
 
         .blogEntry {
             height: 80px;
@@ -42,7 +49,61 @@ body {
             display: flex;
             align-items: center;
             padding: 5px 20px;
-            box-shadow: inset 0px 4px 4px 0px $darker;
+            box-shadow: $shadow;
+
+            span {
+                background: inherit
+            }
+
+            &:hover {
+                filter: brightness(1.2)
+            }
+
+            &:active {
+                filter: brightness(0.9)
+            }
+        }
+
+        .selectedEntry {
+            background: $selected;
+        }
+    }
+
+    .sidebarControls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        color: $bright;
+
+        .addBlog {
+            background: $add;
+        }
+
+        .removeBlog {
+            background: $remove;
+        }
+
+        .controlButton {
+            color: inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                color: inherit;
+                background: transparent;
+
+                path {
+                    fill: $bright;
+                }
+            }
+
+            &:hover {
+                filter: brightness(1.2)
+            }
+
+            &:active {
+                filter: brightness(0.9)
+            }
         }
     }
 }

@@ -64,6 +64,10 @@ public class BlogObject {
             return this.inst;
         }
         Instance blog = new Instance(this.inner.title, BlogObject.self);
+        blog.setData("title", new StringDataEntry(this.inner.title));
+        blog.setData("author", new StringDataEntry(this.inner.author));
+        blog.setData("content", new StringDataEntry(this.inner.content));
+        blog.setData("likes", new LongDataEntry((long) this.inner.likes));
         ExampleApplication.client.write(blog.allInOneQuery().getBytes(StandardCharsets.UTF_8));
         this.inst = blog;
         return this.inst;

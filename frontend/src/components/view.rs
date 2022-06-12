@@ -7,12 +7,11 @@ use crate::data::{Blog, SelectedBlog};
 
 #[derive(Properties, PartialEq, Clone)]
 pub struct ViewProps {
-    pub selected: Rc<SelectedBlog>
+    pub selected: Rc<SelectedBlog>,
 }
 
 #[function_component(View)]
 pub fn view(props: &ViewProps) -> Html{
-    console_log!("There");
     match &props.selected.blog {
         Some(blog) => {
             let content = gloo_utils::document().create_element("div").unwrap();

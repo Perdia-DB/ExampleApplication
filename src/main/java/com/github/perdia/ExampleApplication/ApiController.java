@@ -70,6 +70,7 @@ public class ApiController {
             .map(entry -> new BlogObject(entry))
             .filter(entry -> entry.inner.title.equals(title))
             .collect(Collectors.toList());
+            
         if (blogs.size() == 0) {
             return new ResponseEntity<>("No Blog with that title was found!", HttpStatus.NOT_FOUND);
         }

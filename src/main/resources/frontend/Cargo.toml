@@ -1,0 +1,20 @@
+[package]
+name = "portfolio"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+yew = "0.19.3"
+yew-router = "*"
+include_dir = "*"
+markdown = "*"
+gloo = "*"
+gloo-utils = "*"
+reqwasm = "*"
+web-sys = { version = "*", features=["Event", "CustomEvent"]}
+wasm-bindgen-futures = "*"
+wasm-bindgen = "*"
+serde = "*"
+serde_json = "*"

@@ -1,8 +1,0 @@
-version: "3.8"
-services:
-  web:
-    build: .
-    env_file:
-      - Docker.env
-    ports:
-      - "80:80/tcp"

@@ -68,7 +68,6 @@ public class BlogObject {
         blog.setData("author", new StringDataEntry(this.inner.author));
         blog.setData("content", new StringDataEntry(this.inner.content));
         blog.setData("likes", new LongDataEntry((long) this.inner.likes));
-        System.out.println(blog.allInOneQuery());
         ExampleApplication.client.write(blog.allInOneQuery().getBytes(StandardCharsets.UTF_8));
         this.inst = blog;
         return this.inst;

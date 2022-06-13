@@ -1,5 +1,6 @@
 use std::rc::Rc;
 
+use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode, percent_decode_str};
 use reqwasm::http::Request;
 use yew::{Properties, UseStateHandle, function_component, html, classes, Html};
 use yewdux::prelude::{use_selector, use_store_value, use_store};
@@ -12,11 +13,11 @@ pub fn view() -> Html{
     match &state.selected {
         Some(blog) => {
             let title = gloo_utils::document().create_element("h1").unwrap();
-            title.set_inner_html(&blog.title.to_string());
+            title.set_inner_html(&percent_decode_str(&blog.title.to_string()).decode_utf8().unwrap().to_string());
             let author = gloo_utils::document().create_element("p").unwrap();
-            author.set_inner_html(&blog.author.to_string());
+            author.set_inner_html(&percent_decode_str(&blog.author.to_string()).decode_utf8().unwrap().to_string());
             let content = gloo_utils::document().create_element("div").unwrap();
-            content.set_inner_html(&blog.content.to_string());
+            content.set_inner_html(&percent_decode_str(&blog.content.to_string()).decode_utf8().unwrap().to_string());
             html!(
                 <div class={classes!("view")}>
                     {Html::VRef(title.into())}
@@ -62,12 +63,15 @@ pub fn view() -> Html{
                 let send = dispatch.reduce_mut_future_callback(move |state| Box::pin(async move {
                     let mut title = gloo_utils::document().get_element_by_id("title").unwrap().inner_html();
                     title = title.replace("<br>", "");
+                    title = utf8_percent_encode(&title, NON_ALPHANUMERIC).to_string();
                     if state.blogs.as_ref().unwrap().iter().map(|b| b.title.to_string()).collect::<Vec<String>>().contains(&title) {
                         alert!("Blog with title {:?} already exists.", title);
                         return 
                     }
-                    let author = gloo_utils::document().get_element_by_id("author").unwrap().inner_html();
-                    let content = gloo_utils::document().get_element_by_id("content").unwrap().inner_html();
+                    let mut author = gloo_utils::document().get_element_by_id("author").unwrap().inner_html();
+                    author = utf8_percent_encode(&author, NON_ALPHANUMERIC).to_string();
+                    let mut content = gloo_utils::document().get_element_by_id("content").unwrap().inner_html();
+                    content = utf8_percent_encode(&content, NON_ALPHANUMERIC).to_string();
                     let blog = Blog {
                         title, author, content, likes: 0
                     };

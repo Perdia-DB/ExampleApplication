@@ -1,5 +1,6 @@
 use std::{rc::Rc, sync::{Arc, Mutex}};
 
+use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC, percent_decode_str};
 use reqwasm::http::{Request, Headers};
 use wasm_bindgen_futures::spawn_local;
 use yew::{Properties, function_component, html, classes, Html, UseStateHandle, Callback, Classes};
@@ -21,8 +22,11 @@ pub fn sidebar_entry(props: &SidebarEntryProps) -> Html {
         state.selected = Some(*blog.clone());
         state.editmode = false;
     });
+
+    let span = gloo_utils::document().create_element("span").unwrap();
+    span.set_inner_html(&percent_decode_str(&props.blog.title.to_string()).decode_utf8().unwrap().to_string());
     
-    html!{<div class={props.classes.clone()} {onclick}><span>{props.blog.title.to_string()}</span></div>}
+    html!{<div class={props.classes.clone()} {onclick}>{Html::VRef(span.into())}</div>}
 }
 
 #[function_component(Sidebar)]
@@ -40,7 +44,7 @@ pub fn sidebar() -> Html {
             return
         }
         let response = Request::delete(
-            format!("http://{}/api/blog?title={}", HOST_LOCATION.to_string(), state.selected.as_ref().unwrap().title.to_string()).as_str())
+            format!("http://{}/api/blog?title={}", HOST_LOCATION.to_string(), utf8_percent_encode(&state.selected.as_ref().unwrap().title.to_string(), NON_ALPHANUMERIC)).as_str())
             .send().await.unwrap();
         
         if response.ok() {
